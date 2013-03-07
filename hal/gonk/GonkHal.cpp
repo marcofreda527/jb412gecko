@@ -544,7 +544,7 @@ GetScreenEnabled()
 void
 SetScreenEnabled(bool enabled)
 {
-  set_screen_state(enabled);
+  //set_screen_state(enabled);
   sScreenEnabled = enabled;
 }
 

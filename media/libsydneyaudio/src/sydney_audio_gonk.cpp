@@ -161,11 +161,13 @@ sa_stream_open(sa_stream_t *s) {
   int32_t chanConfig = s->channels == 1 ?
     AudioSystem::CHANNEL_OUT_MONO : AudioSystem::CHANNEL_OUT_STEREO;
 
-  int frameCount;
+  int frameCount = 870;
+/*
   if (AudioTrack::getMinFrameCount(&frameCount, s->streamType,
                                    s->rate) != NO_ERROR) {
     return SA_ERROR_INVALID;
   }
+*/
   int minsz = frameCount * s->channels * sizeof(int16_t);
 
   s->bufferSize = s->rate * s->channels * sizeof(int16_t);

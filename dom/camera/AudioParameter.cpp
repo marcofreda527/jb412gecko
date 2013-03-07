@@ -18,18 +18,18 @@
 //#define LOG_NDEBUG 0
 
 #include <utils/Log.h>
-
+#define LOGV(args...)
 #include <media/AudioParameter.h>
 
 namespace android {
-
+#if 0
 const char *AudioParameter::keyRouting = "routing";
 const char *AudioParameter::keySamplingRate = "sampling_rate";
 const char *AudioParameter::keyFormat = "format";
 const char *AudioParameter::keyChannels = "channels";
 const char *AudioParameter::keyFrameCount = "frame_count";
 const char *AudioParameter::keyInputSource = "input_source";
-
+#endif
 AudioParameter::AudioParameter(const String8& keyValuePairs)
 {
     char *str = new char[keyValuePairs.length()+1];

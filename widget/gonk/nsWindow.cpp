@@ -20,6 +20,7 @@
 
 #include "android/log.h"
 #include "ui/FramebufferNativeWindow.h"
+#include "ui/PixelFormat.h"
 
 #include "mozilla/dom/TabParent.h"
 #include "mozilla/Hal.h"
@@ -716,12 +717,12 @@ static uint32_t
 ColorDepth()
 {
     switch (NativeWindow()->getDevice()->format) {
-    case GGL_PIXEL_FORMAT_RGB_565:
+    case android::PIXEL_FORMAT_RGB_565:
         return 16;
-    case GGL_PIXEL_FORMAT_RGBA_8888:
+    case android::PIXEL_FORMAT_RGBA_8888:
         return 32;
     }
-    return 24; // GGL_PIXEL_FORMAT_RGBX_8888
+    return 24; // PIXEL_FORMAT_RGBX_8888
 }
 
 NS_IMETHODIMP

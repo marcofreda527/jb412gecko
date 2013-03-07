@@ -23,11 +23,12 @@
 #include <stdint.h>
 #include <sys/types.h>
 
-#include <ui/egl/android_natives.h>
+//#include <ui/egl/android_natives.h>
 
 #include <utils/Errors.h>
 #include <utils/RefBase.h>
 
+#include <ui/ANativeObjectBase.h>
 #include <ui/GraphicBuffer.h>
 #include <ui/Rect.h>
 #include <utils/String8.h>
@@ -47,7 +48,7 @@ public:
     virtual void OnNewFrame() = 0;
 };
 
-class GonkNativeWindow : public EGLNativeBase<ANativeWindow, GonkNativeWindow, RefBase>
+class GonkNativeWindow : public ANativeObjectBase<ANativeWindow, GonkNativeWindow, RefBase>
 {
     typedef mozilla::layers::SurfaceDescriptor SurfaceDescriptor;
     typedef mozilla::layers::GraphicBufferLocked GraphicBufferLocked;

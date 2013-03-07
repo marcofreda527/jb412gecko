@@ -549,7 +549,7 @@ NativeWindow()
     // NB: this *must* run BEFORE allocating the
     // FramebufferNativeWindow.  Do not separate these two C++
     // statements.
-    set_screen_state(1);
+    //set_screen_state(1);
 
     // For some devices, it takes a while for the framebuffer to become
     // usable. So we wait until the framebuffer has woken up before we
@@ -576,8 +576,8 @@ NativeWindow()
     // from hard crashing in that situation.
     gNativeWindow->cancelBuffer = CancelBufferNoop;
 
-    sRunAnimation = true;
-    pthread_create(&sAnimationThread, nullptr, AnimationThread, nullptr);
+    //sRunAnimation = true;
+    //pthread_create(&sAnimationThread, nullptr, AnimationThread, nullptr);
 
     return gNativeWindow.get();
 }

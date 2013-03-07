@@ -351,7 +351,9 @@ nsTheoraState::IsHeader(ogg_packet* aPacket) {
   return th_packet_isheader(aPacket);
 }
 
-# define TH_VERSION_CHECK(_info,_maj,_min,_sub) \
+#undef version_major
+#undef version_minor
+#define TH_VERSION_CHECK(_info,_maj,_min,_sub) \
  (((_info)->version_major>(_maj)||(_info)->version_major==(_maj))&& \
  (((_info)->version_minor>(_min)||(_info)->version_minor==(_min))&& \
  (_info)->version_subminor>=(_sub)))

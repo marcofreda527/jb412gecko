@@ -1228,7 +1228,7 @@ PixelFormatForImage(gfxASurface::gfxImageFormat aFormat)
     case gfxASurface::ImageFormatRGB16_565:
         return PIXEL_FORMAT_RGB_565;
     case gfxASurface::ImageFormatA8:
-        return PIXEL_FORMAT_L_8;
+        return PIXEL_FORMAT_A_8;
     default:
         MOZ_NOT_REACHED("Unknown gralloc pixel format for Image format");
     }
@@ -1239,7 +1239,7 @@ static gfxASurface::gfxContentType
 ContentTypeForPixelFormat(PixelFormat aFormat)
 {
     switch (aFormat) {
-    case PIXEL_FORMAT_L_8:
+    case PIXEL_FORMAT_A_8:
         return gfxASurface::CONTENT_ALPHA;
     case PIXEL_FORMAT_RGBA_8888:
         return gfxASurface::CONTENT_COLOR_ALPHA;

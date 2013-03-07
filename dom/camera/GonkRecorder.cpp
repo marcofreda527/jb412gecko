@@ -45,6 +45,10 @@
 
 #include <cutils/properties.h>
 #include "GonkCameraSource.h"
+#define LOGV(args...)
+#define LOGE(args...)
+#define LOGI(args...)
+#define LOGW(args...)
 
 namespace android {
 

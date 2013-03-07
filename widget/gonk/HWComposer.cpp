@@ -21,7 +21,8 @@
 
 namespace android {
 // ---------------------------------------------------------------------------
-
+#define LOGW_IF
+#define LOGE_IF
 HWComposer::HWComposer()
     : mModule(0), mHwc(0),
       mDpy(EGL_NO_DISPLAY), mSur(EGL_NO_SURFACE)
