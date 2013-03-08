@@ -31,6 +31,7 @@ LIBS += \
   -lhardware_legacy \
   -lhardware \
   -lcutils \
+  -lsuspend \
   $(DEPTH)/media/libpng/$(LIB_PREFIX)mozpng.$(LIB_SUFFIX) \
   $(MOZ_ZLIB_LIBS) \
   $(NULL)

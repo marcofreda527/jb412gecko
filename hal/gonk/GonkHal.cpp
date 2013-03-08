@@ -31,7 +31,7 @@
 #include "hardware/lights.h"
 #include "hardware_legacy/uevent.h"
 #include "hardware_legacy/vibrator.h"
-#include "hardware_legacy/power.h"
+#include "suspend/autosuspend.h"
 
 #include "base/message_loop.h"
 
@@ -544,7 +544,7 @@ GetScreenEnabled()
 void
 SetScreenEnabled(bool enabled)
 {
-  //set_screen_state(enabled);
+  enabled ? autosuspend_enable() : autosuspend_disable();
   sScreenEnabled = enabled;
 }
 

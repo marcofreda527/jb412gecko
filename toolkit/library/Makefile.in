@@ -449,6 +449,7 @@ OS_LIBS += \
   -lstagefright \
   -lstagefright_omx \
   -lbinder \
+  -lsuspend \
   $(NULL)
 endif
 

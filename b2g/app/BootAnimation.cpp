@@ -27,7 +27,7 @@
 
 #include "android/log.h"
 #include "ui/FramebufferNativeWindow.h"
-#include "hardware_legacy/power.h"
+#include "suspend/autosuspend.h"
 #include "hardware/gralloc.h"
 
 #define LOG(args...)  __android_log_print(ANDROID_LOG_INFO, "Gonk" , ## args)
@@ -549,7 +549,7 @@ NativeWindow()
     // NB: this *must* run BEFORE allocating the
     // FramebufferNativeWindow.  Do not separate these two C++
     // statements.
-    //set_screen_state(1);
+    autosuspend_enable();
 
     // For some devices, it takes a while for the framebuffer to become
     // usable. So we wait until the framebuffer has woken up before we
