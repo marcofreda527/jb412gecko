@@ -544,7 +544,7 @@ GetScreenEnabled()
 void
 SetScreenEnabled(bool enabled)
 {
-  enabled ? autosuspend_enable() : autosuspend_disable();
+  //enabled ? autosuspend_enable() : autosuspend_disable();
   sScreenEnabled = enabled;
 }
 

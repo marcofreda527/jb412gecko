@@ -549,7 +549,7 @@ NativeWindow()
     // NB: this *must* run BEFORE allocating the
     // FramebufferNativeWindow.  Do not separate these two C++
     // statements.
-    autosuspend_enable();
+    //autosuspend_enable();
 
     // For some devices, it takes a while for the framebuffer to become
     // usable. So we wait until the framebuffer has woken up before we
