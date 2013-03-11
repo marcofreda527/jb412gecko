@@ -37,6 +37,10 @@
 
 #include "nsXPCOMPrivate.h" // for MAXPATHLEN and XPCOM_DLL
 
+#ifdef MOZ_WIDGET_GONK
+# include <binder/ProcessState.h>
+#endif
+
 #include "mozilla/Telemetry.h"
 
 static void Output(const char *fmt, ... )
@@ -167,6 +171,13 @@ static int do_main(int argc, char* argv[])
 int main(int argc, char* argv[])
 {
   char exePath[MAXPATHLEN];
+
+#ifdef MOZ_WIDGET_GONK
+  // The first call of ProcessState::self() (per process) will register into
+  // binder driver by current thread info, so the main thread is a best one to
+  // do registration because it never leaves.
+  android::sp<android::ProcessState> proc(android::ProcessState::self());
+#endif
 
   nsresult rv = mozilla::BinaryPath::Get(argv[0], exePath);
   if (NS_FAILED(rv)) {

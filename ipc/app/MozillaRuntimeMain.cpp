@@ -22,9 +22,20 @@
 #include "nsSetDllDirectory.h"
 #endif
 
+#ifdef MOZ_WIDGET_GONK
+# include <binder/ProcessState.h>
+#endif
+
 int
 main(int argc, char* argv[])
 {
+#ifdef MOZ_WIDGET_GONK
+  // The first call of ProcessState::self() (per process) will register into
+  // binder driver by current thread info, so the main thread is a best one to
+  // do registration because it never leaves.
+  android::sp<android::ProcessState> proc(android::ProcessState::self());
+#endif
+
 #if defined(XP_WIN) && defined(DEBUG_bent)
     MessageBox(NULL, L"Hi", L"Hi", MB_OK);
 #endif
