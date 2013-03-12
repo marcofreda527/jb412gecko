@@ -87,7 +87,7 @@ class AutoMounter;
 
 // sAutoVolumeName contains an array of the volume names that the AutoMounter will
 // try to automount. Any other volumes will be ignored.
-static const nsDependentCString sAutoVolumeName[] = { NS_LITERAL_CSTRING("sdcard") };
+static const nsDependentCString sAutoVolumeName[] = { NS_LITERAL_CSTRING("sdcard"), NS_LITERAL_CSTRING("internal_sdcard"), NS_LITERAL_CSTRING("external_sdcard") };
 
 /**************************************************************************
 *

@@ -663,7 +663,7 @@ GetSDCardStatus(nsAString& aState) {
     return NS_ERROR_FAILURE;
   }
   nsCOMPtr<nsIVolume> vol;
-  vs->GetVolumeByName(NS_LITERAL_STRING("sdcard"), getter_AddRefs(vol));
+  vs->GetVolumeByName(NS_LITERAL_STRING("internal_sdcard"), getter_AddRefs(vol));
   if (!vol) {
     return NS_ERROR_FAILURE;
   }
