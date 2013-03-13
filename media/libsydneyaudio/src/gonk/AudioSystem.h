@@ -706,6 +706,9 @@ public:
                                       int indexMax);
     static status_t setStreamVolumeIndex(stream_type stream, int index);
     static status_t setStreamVolumeIndex(audio_stream_type_t stream, int index);
+    static status_t setStreamVolumeIndex(audio_stream_type_t stream,
+                                         int index,
+                                         audio_devices_t device);
     static status_t getStreamVolumeIndex(stream_type stream, int *index);
     static status_t getStreamVolumeIndex(audio_stream_type_t stream, int *index);
 

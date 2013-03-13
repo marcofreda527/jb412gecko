@@ -138,6 +138,13 @@ AudioManager::AudioManager() : mPhoneState(PHONE_STATE_CURRENT),
     NS_WARNING("Failed to add bluetooth-sco-status-changed oberver!");
   }
 
+  for (int loop = 0; loop < AUDIO_STREAM_CNT; loop++) {
+    AudioSystem::initStreamVolume(static_cast<audio_stream_type_t>(loop), 0,
+                                  sMaxStreamVolumeTbl[loop]);
+  }
+  // Force publicnotification to output at maximal volume
+  AudioSystem::setStreamVolumeIndex(static_cast<audio_stream_type_t>(AUDIO_STREAM_ENFORCED_AUDIBLE),
+                                    sMaxStreamVolumeTbl[AUDIO_STREAM_ENFORCED_AUDIBLE], AUDIO_DEVICE_OUT_SPEAKER);
 }
 
 AudioManager::~AudioManager() {
@@ -263,6 +270,8 @@ AudioManager::SetFmRadioAudioEnabled(bool aFmRadioAudioEnabled)
 
 NS_IMETHODIMP
 AudioManager::SetStreamVolumeIndex(int32_t aStream, int32_t aIndex) {
+  AudioSystem::setStreamVolumeIndex(static_cast<audio_stream_type_t>(aStream),
+                                    aIndex, AUDIO_DEVICE_OUT_SPEAKER);
   return NS_OK;
 }
 
