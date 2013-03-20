@@ -202,6 +202,7 @@ this.libnetutils = (function () {
     let dns2buf = ctypes.char.array(4096)();
     let serverbuf = ctypes.char.array(4096)();
     let lease = ctypes.int();
+    let vendorinfobuf = ctypes.char.array(4096)();
     let c_dhcp_do_request =
       library.declare("dhcp_do_request", ctypes.default_abi,
                       ctypes.int,      // return value
@@ -212,7 +213,8 @@ this.libnetutils = (function () {
                       ctypes.char.ptr, // dns1
                       ctypes.char.ptr, // dns2
                       ctypes.char.ptr, // server
-                      ctypes.int.ptr); // lease
+                      ctypes.int.ptr,
+                      ctypes.char.ptr); // lease
 
 
     iface.dhcp_do_request = function dhcp_do_request(ifname) {
@@ -223,7 +225,8 @@ this.libnetutils = (function () {
                                   dns1buf,
                                   dns2buf,
                                   serverbuf,
-                                  lease.address());
+                                  lease.address(),
+                                  vendorinfobuf);
 
       if (ret && DEBUG) {
         let error = iface.dhcp_get_errmsg();

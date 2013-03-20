@@ -42,7 +42,7 @@ self.onmessage = function(e) {
   switch (cmd) {
   case "command":
     len.value = 4096;
-    var ret = libhardware_legacy.command(data.request, cbuf, len.address());
+    var ret = libhardware_legacy.command(data.ifname, data.request, cbuf, len.address());
     var reply = "";
     if (!ret) {
       // The return value from libhardware_legacy.command is not guaranteed to
@@ -67,7 +67,7 @@ self.onmessage = function(e) {
     postMessage({ id: id, status: ret, reply: reply });
     break;
   case "wait_for_event":
-    var ret = libhardware_legacy.wait_for_event(cbuf, 4096);
+    var ret = libhardware_legacy.wait_for_event(data.ifname, cbuf, 4096);
     var event = cbuf.readString().substr(0, ret.value);
     postMessage({ id: id, event: event });
     break;
@@ -119,7 +119,15 @@ self.onmessage = function(e) {
     postMessage({ id: id, status: ret });
     break;
   case "close_supplicant_connection":
-    libhardware_legacy.close_supplicant_connection();
+    libhardware_legacy.close_supplicant_connection(data.ifname);
+    postMessage({ id: id, status: ret });
+    break;
+  case "connect_to_supplicant":
+   var ret = libhardware_legacy.connect_to_supplicant(data.ifname);
+   postMessage({ id: id, status: ret }); 
+   break;
+  case "start_supplicant":
+    var ret = libhardware_legacy.start_supplicant(0);
     postMessage({ id: id, status: ret });
     break;
   default:

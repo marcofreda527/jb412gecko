@@ -104,7 +104,7 @@ var WifiManager = (function() {
   };
 
   function waitForEvent() {
-    eventWorker.postMessage({ cmd: "wait_for_event" });
+    eventWorker.postMessage({ cmd: "wait_for_event", ifname: "wlan0"});
   }
 
   // Commands to the control worker
@@ -155,15 +155,19 @@ var WifiManager = (function() {
   }
 
   function connectToSupplicant(callback) {
-    voidControlMessage("connect_to_supplicant", callback);
+    controlMessage({ cmd: "connect_to_supplicant", ifname: "wlan0" }, function(data) {
+      callback(data.status);
+    });
   }
 
   function closeSupplicantConnection(callback) {
-    voidControlMessage("close_supplicant_connection", callback);
+    controlMessage({ cmd: "close_supplicant_connection", ifname: "wlan0" }, function(data) {
+      callback(data.status);
+    });
   }
 
   function doCommand(request, callback) {
-    controlMessage({ cmd: "command", request: request }, callback);
+    controlMessage({ cmd: "command", ifname: "wlan0", request: request }, callback);
   }
 
   function doIntCommand(request, callback) {
