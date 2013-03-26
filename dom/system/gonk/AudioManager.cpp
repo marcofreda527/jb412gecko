@@ -159,12 +159,18 @@ AudioManager::~AudioManager() {
 NS_IMETHODIMP
 AudioManager::GetMicrophoneMuted(bool* aMicrophoneMuted)
 {
+  if (AudioSystem::isMicrophoneMuted(aMicrophoneMuted)) {
+    return NS_ERROR_FAILURE;
+  }
   return NS_OK;
 }
 
 NS_IMETHODIMP
 AudioManager::SetMicrophoneMuted(bool aMicrophoneMuted)
 {
+  if (AudioSystem::muteMicrophone(aMicrophoneMuted)) {
+    return NS_ERROR_FAILURE;
+  }
   return NS_OK;
 }
 
