@@ -2583,7 +2583,7 @@ let RIL = {
   },
 
   getDeviceIdentity: function getDeviceIdentity() {
-    Buf.simpleRequest(REQUEST_GET_DEVICE_IDENTITY);
+    Buf.simpleRequest(REQUEST_DEVICE_IDENTITY);
   },
 
   getBasebandVersion: function getBasebandVersion() {
@@ -4536,9 +4536,13 @@ let RIL = {
     if (this._waitingRadioTech || isCdma != this._isCdma) {
       this._isCdma = isCdma;
       this._waitingRadioTech = false;
-      this.getIMEI();
-      this.getIMEISV();
-      this.getICCStatus();
+      if (this._isCdma) {
+        this.getDeviceIdentity();
+      } else {
+        this.getIMEI();
+        this.getIMEISV();
+      }
+       this.getICCStatus();
     }
   },
 
@@ -6089,7 +6093,19 @@ RIL[REQUEST_CDMA_SMS_BROADCAST_ACTIVATION] = null;
 RIL[REQUEST_CDMA_SUBSCRIPTION] = null;
 RIL[REQUEST_CDMA_WRITE_SMS_TO_RUIM] = null;
 RIL[REQUEST_CDMA_DELETE_SMS_ON_RUIM] = null;
-RIL[REQUEST_DEVICE_IDENTITY] = null;
+RIL[REQUEST_DEVICE_IDENTITY] = function REQUEST_DEVICE_IDENTITY(length, options) {
+  if (options.rilRequestError) {
+    return;
+  }
+
+  let result = Buf.readStringList();
+
+  // The result[0] is for IMEI. (Already be handled in REQUEST_GET_IMEI)
+  // The result[1] is for IMEISV. (Already be handled in REQUEST_GET_IMEISV)
+  // They are both ignored.
+  this.ESN = result[2];
+  this.MEID = result[3];
+};
 RIL[REQUEST_EXIT_EMERGENCY_CALLBACK_MODE] = null;
 RIL[REQUEST_GET_SMSC_ADDRESS] = function REQUEST_GET_SMSC_ADDRESS(length, options) {
   if (options.rilRequestError) {
@@ -6196,8 +6212,12 @@ RIL[UNSOLICITED_RESPONSE_RADIO_STATE_CHANGED] = function UNSOLICITED_RESPONSE_RA
        newState == GECKO_RADIOSTATE_READY) {
     // The radio became available, let's get its info.
     if (!this._waitingRadioTech) {
-      this.getIMEI();
-      this.getIMEISV();
+      if (this._isCdma) {
+        this.getDeviceIdentity();
+      } else {
+        this.getIMEI();
+        this.getIMEISV();
+      }
     }
     this.getBasebandVersion();
     this.updateCellBroadcastConfig();
