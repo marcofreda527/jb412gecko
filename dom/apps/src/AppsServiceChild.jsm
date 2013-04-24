@@ -114,13 +114,8 @@ this.DOMApplicationRegistry = {
   },
 
   getAppInfo: function getAppInfo(aAppId) {
-    if (!this.webapps[aAppId]) {
-      debug("No webapp for " + aAppId);
-      return null;
-    }
-    return { "basePath":  this.webapps[aAppId].basePath + "/",
-             "isCoreApp": !this.webapps[aAppId].removable };
-  },
+    return AppsUtils.getAppInfo(this.webapps, aAppId);
+  }
 }
 
 DOMApplicationRegistry.init();
